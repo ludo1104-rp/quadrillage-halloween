@@ -302,7 +302,7 @@ body.simple .pill[aria-pressed="true"]{background:#0A0A0A;border-color:#0A0A0A;c
 body.simple .pchip.act{background:#F7F7F7;border-color:#0A0A0A}
 body.simple .foot{font-family:var(--mono);letter-spacing:.02em}
 body.simple .t-arr{background:#E9E3F9}
-.marque{margin:0 0 4px;font-family:"Figtree","Avenir Next",Arial,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.marque{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:18px;height:56px;display:flex;align-items:center;margin:0;z-index:20;font-family:"Figtree","Avenir Next",Arial,sans-serif;font-size:26px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--ink);pointer-events:none}
 </style>
 </head>
 <body>
@@ -314,10 +314,10 @@ body.simple .t-arr{background:#E9E3F9}
 
 <!-- ACCUEIL -->
 <section class="screen on" id="home">
+  <p class="marque">Ludo.</p>
   <div class="hmain">
     <div class="reglages" role="group" aria-label="Style"><span class="reg-label">Style</span>
       <button class="pill" data-sty="couleurs">Couleurs</button><button class="pill" data-sty="simple">Simple</button></div>
-    <p class="marque">Ludo.</p>
     <div class="hicons" id="hicons"></div>
     <h1>Se repérer sur un quadrillage</h1>
     <p class="sub">Spécial Halloween</p>
