@@ -10,17 +10,20 @@
   --bg:#F6F3FB;--card:#FFFFFF;--ink:#3E3A55;--muted:#67627E;--line:#E4DFF0;
   --lav:#E9E3F9;--lavD:#8E7CC3;--blue:#DCEBFA;--peach:#FDE3D2;--yellow:#FFF1BF;--mint:#D6F2E4;--pink:#FBDDE5;
   --ok:#3FA874;--okBg:#D6F2E4;--ko:#D9708A;--koBg:#FBDDE5;--onPri:#FFFFFF;
+  --okD:#1E7643;--koD:#B42A20;--okS:#2FA05C;--koS:#D9473B;--onD:#FFFFFF;
   --sq:110px;--cell:52px;--pot:165px;
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#1F1C2B;--card:#2A2639;--ink:#EEEAF7;--muted:#AAA4C2;--line:#3B3650;
   --lav:#3A3354;--lavD:#B7A8E8;--blue:#2C3B52;--peach:#4A3329;--yellow:#4A4226;--mint:#24443A;--pink:#4C2C38;
-  --ok:#6FD1A0;--okBg:#24443A;--ko:#F09AB0;--koBg:#4C2C38;--onPri:#1F1C2B;}}
+  --ok:#6FD1A0;--okBg:#24443A;--ko:#F09AB0;--koBg:#4C2C38;--onPri:#1F1C2B;
+  --okD:#6FD39A;--koD:#FF8A80;--okS:#2FA05C;--koS:#D9473B;--onD:#1F1C2B;}}
 :root[data-theme="dark"]{
   --bg:#1F1C2B;--card:#2A2639;--ink:#EEEAF7;--muted:#AAA4C2;--line:#3B3650;
   --lav:#3A3354;--lavD:#B7A8E8;--blue:#2C3B52;--peach:#4A3329;--yellow:#4A4226;--mint:#24443A;--pink:#4C2C38;
-  --ok:#6FD1A0;--okBg:#24443A;--ko:#F09AB0;--koBg:#4C2C38;--onPri:#1F1C2B;}
+  --ok:#6FD1A0;--okBg:#24443A;--ko:#F09AB0;--koBg:#4C2C38;--onPri:#1F1C2B;
+  --okD:#6FD39A;--koD:#FF8A80;--okS:#2FA05C;--koS:#D9473B;--onD:#1F1C2B;}
 html{height:100%}
 *,*::before,*::after{box-sizing:border-box}
 body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;overflow:hidden}
@@ -202,6 +205,13 @@ body:not(.portrait) .sheet.up{transform:translateY(0)}
 .shextra{display:flex;align-items:center;gap:8px;font-size:1.1rem;margin:14px 0;flex-wrap:wrap}
 .shextra svg{width:26px;height:26px}
 .sheet .btn{width:100%}
+/* Feuille de résultat : charte « Applis élèves » (24/10/2026) */
+.sheet.ok{background:var(--okBg)}.sheet.ko{background:var(--koBg)}
+.sheet.ok .shtitle{color:var(--okD)}.sheet.ko .shtitle{color:var(--koD)}
+.badge.ok{background:var(--okS)}.badge.ko{background:var(--koS)}
+.sheet.ok #contBtn{background:var(--okD);color:var(--onD)}.sheet.ko #contBtn{background:var(--koD);color:var(--onD)}
+body.simple .badge.ok{background:#86CFA4;color:#0A0A0A}body.simple .badge.ko{background:#F4A3B4;color:#0A0A0A}
+body.simple .sheet.ok #contBtn,body.simple .sheet.ko #contBtn{background:#0A0A0A;color:#FFFFFF}
 
 /* Lignes FALC : une phrase par ligne, une image à gauche */
 .slines{display:flex;flex-direction:column;gap:10px}
@@ -292,6 +302,7 @@ body.simple{
   --bg:#FFFFFF;--card:#FFFFFF;--ink:#0A0A0A;--muted:#737373;--line:#DCDCDC;
   --lav:#F7F7F7;--lavD:#0A0A0A;--blue:#DCEBFA;--peach:#FDE3D2;--yellow:#FFF1BF;--mint:#D6F2E4;--pink:#FBDDE5;
   --ok:#1A7F37;--okBg:#E3F5E9;--ko:#B42318;--koBg:#FCE7E5;--onPri:#FFFFFF;
+  --okD:#1A7F37;--koD:#B42318;--onD:#FFFFFF;
   --mono:ui-monospace,"SF Mono",Menlo,monospace;
   background:#FFFFFF;color:#0A0A0A;font-family:"Figtree","Avenir Next",Arial,sans-serif;color-scheme:light;
 }
@@ -329,7 +340,7 @@ body.simple .t-arr{background:#E9E3F9}
     <button class="btn sec" id="rulesBtn">Comment jouer ?</button>
   </div>
   <div class="foot">
-    Version 2.0<br>
+    Version 2.1<br>
     Application produite par IA à partir d'un document Internet. Des erreurs peuvent survenir.<br>
     Application développée par Claude AI sous la supervision de Ludo<b style="font-weight:700;font-size:1.35em;line-height:0">.</b> (@rprof_1) · <a href="https://rprof1.com" target="_blank" rel="noopener" style="color:inherit">rprof1.com</a>.<br>
     Licence <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank" rel="noopener" style="color:inherit">CC BY-NC-SA 4.0</a>
@@ -821,7 +832,7 @@ function showResult(ok,text){
   const P=G.players[G.turn];
   if(ok){P.candies++;P.streak++;P.best=Math.max(P.best,P.streak);}else P.streak=0;
   lastOk=ok;updateCHead();
-  const title=ok?pick(['Bravo !','Super !','Bien joué !','Exact !']):pick(['Pas encore…','Presque !','On réessaie au prochain tour !']);
+  const title=ok?'Bravo !':'Presque !';
   const back=G.prev===0?'Ton pion retourne sur la case Départ.':`Ton pion retourne sur la case ${G.prev}.`;
   const extra=ok?`${svg('bonbon')}<span>+1 bonbon</span>${P.streak>=2?`<span style="margin-left:10px" class="flame">${FLAME}</span><span>Série de ${P.streak} !</span>`:''}`:`<span>${back}</span>`;
   const sh=$('#sheet');
